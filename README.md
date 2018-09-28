@@ -1,2 +1,4 @@
-# green-sense-ntwoc
-Smart Plant Monitoring for Precision Farming
+# Green Sense
+An Open Source Project for Smart Plant Monitoring for Precision Farming
+
+
