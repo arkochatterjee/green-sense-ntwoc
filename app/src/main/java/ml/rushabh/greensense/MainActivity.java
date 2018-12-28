@@ -12,6 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import ml.rushabh.greensense.R;
 
@@ -40,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         else {
+            final ProgressBar pb = (ProgressBar) findViewById(R.id.pb);
             final TextView tv = (TextView)findViewById(R.id.tv);
+            final ListView listView = (ListView)findViewById(R.id.datalist);
+            final ArrayList<DeviceData> list = new ArrayList<DeviceData>();
+            pb.setVisibility(View.VISIBLE);
+            final CardAdapter adapter = new CardAdapter(this,R.layout.card, list);
+
+            listView.setAdapter(adapter);
             // Get a reference to our posts
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("data/device1");
@@ -48,14 +62,17 @@ public class MainActivity extends AppCompatActivity {
             ref.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                    tv.append("\n\n");
                     DeviceData data = dataSnapshot.getValue(DeviceData.class);
-                    tv.append("\nairHumidity : "+data.airHumidity);
-                    tv.append("\ngps : "+data.gps);
-                    tv.append("\npH : "+data.pH);
-                    tv.append("\nsoilMoisture : "+data.soilMoisture);
-                    tv.append("\ntemperature : "+data.temperature);
-                    tv.append("\nTimeUnderSunlight : "+data.TimeUnderSunlight);
+                    String st = "";
+                    //list.add(data);
+                    adapter.add(data);
+                    pb.setVisibility(View.GONE);
+                    st+=("\nairHumidity : "+data.airHumidity);
+                    st+=("\ngps : "+data.gps);
+                    st+=("\npH : "+data.pH);
+                    st+=("\nsoilMoisture : "+data.soilMoisture);
+                    st+=("\ntemperature : "+data.temperature);
+                    st+=("\nTimeUnderSunlight : "+data.timeUnderSunlight);
                 }
 
                 @Override
