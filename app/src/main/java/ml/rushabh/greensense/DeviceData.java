@@ -7,7 +7,7 @@ public class DeviceData{
     public String rtc;
     public String soilMoisture;
     public String temperature;
-    public String TimeUnderSunlight;
+    public String timeUnderSunlight;
     public DeviceData(){}
     public DeviceData(String airHumidity,
             String gps,
@@ -15,14 +15,14 @@ public class DeviceData{
             String rtc,
             String soilMoisture,
             String temperature,
-            String TimeUnderSunlight){
+            String timeUnderSunlight){
         this.airHumidity = airHumidity;
         this.gps = gps;
         this.pH = pH;
         this.rtc = rtc;
         this.soilMoisture = soilMoisture;
         this.temperature = temperature;
-        this.TimeUnderSunlight = TimeUnderSunlight;
+        this.timeUnderSunlight = timeUnderSunlight;
     }
 
 }
